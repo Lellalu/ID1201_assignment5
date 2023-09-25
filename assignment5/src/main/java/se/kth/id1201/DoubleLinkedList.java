@@ -23,10 +23,15 @@ public class DoubleLinkedList {
         DoubleNode node = null; 
         DoubleNode pre = null;
         for(int i=0; i<n;i++){ 
-            node = new DoubleNode(i, pre, node); 
-            pre = node.previous;
+            node = new DoubleNode(i, pre, null); 
+            if(first == null){
+                first = node;
+            }
+            if(pre != null){
+                pre.next = node;
+            }
+            pre = node;
         }
-        this.first = node;
         this.length = n;
     }
 
@@ -42,12 +47,12 @@ public class DoubleLinkedList {
     
     public boolean find(int value){
         DoubleNode node = first;
-        do{
+        while(node.next != null){
             if(node.val == value){
                 return true;
             }
             node = node.next;
-        }while(node.next != null);
+        }
         return false;
     }
 
@@ -91,6 +96,7 @@ public class DoubleLinkedList {
         n.previous = null;
         first.previous = n; 
         first = n;
+        length +=1;
     }
 
     public void unlink(DoubleNode n){
@@ -116,6 +122,7 @@ public class DoubleLinkedList {
         next_node.previous = n.previous;
         n.next = null;
         n.previous = null;
+        length -=1;
     }
 
 }
